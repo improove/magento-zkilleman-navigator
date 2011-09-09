@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="top.menu">
+            <remove name="catalog.topnav" />
+            <block type="navigator/tree" name="navigator.topnav" template="navigator/main.phtml">
+                <action method="setRootCode"><code>main_menu</code></action>
+            </block>
+        </reference>
+        <reference name="header">
+            <remove name="top.links" />
+            <block type="navigator/tree" name="navigator.top.links" as="topLinks" template="navigator/toplinks.phtml">
+                <action method="setRootCode"><code>header_links</code></action>
+            </block>
+        </reference>
+    </default>
+</layout>

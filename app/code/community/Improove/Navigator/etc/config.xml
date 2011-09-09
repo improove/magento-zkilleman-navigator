@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Improove_Navigator>
+            <version>0.0.1</version>
+        </Improove_Navigator>
+    </modules>
+
+    <global>
+        <models>
+            <navigator>
+                <class>Improove_Navigator_Model</class>
+                <resourceModel>navigator_resource_eav_mysql4</resourceModel>
+            </navigator>
+            <!--navigator_mysql4>
+                <class>Improove_Navigator_Model_Mysql4</class>
+                <entities>
+                    <node>
+                        <table>navigator_node</table>
+                    </node>
+                    <node_item>
+                        <table>navigator_node_item</table>
+                    </node_item>
+                </entities>
+            </navigator_mysql4-->
+            <navigator_resource_eav_mysql4>
+                <class>Improove_Navigator_Model_Resource_Eav_Mysql4</class>
+                <entities>
+                    <node>
+                        <table>navigator_node</table>
+                    </node>
+                </entities>
+            </navigator_resource_eav_mysql4>
+        </models>
+        <blocks>
+            <navigator>
+                <class>Improove_Navigator_Block</class>
+            </navigator>
+        </blocks>
+        <helpers>
+            <navigator>
+                <class>Improove_Navigator_Helper</class>
+            </navigator>
+        </helpers>
+        <resources>
+            <navigator_setup>
+                <setup>
+                    <module>Improove_Navigator</module>
+                    <class>Improove_Navigator_Model_Entity_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </navigator_setup>
+            <navigator_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </navigator_write>
+            <navigator_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </navigator_read>
+        </resources>
+        <navigator>
+            <content>
+                <type>
+                    <plain_node translate="label" module="navigator">
+                        <label>Plain Node</label>
+                        <model>navigator/node_content_type_plain</model>
+                    </plain_node>
+                    <absolute_link translate="label" module="navigator">
+                        <label>Absolute Link</label>
+                        <model>navigator/node_content_type_absolute</model>
+                    </absolute_link>
+                    <internal_link translate="label" module="navigator">
+                        <label>Internal Link</label>
+                        <model>navigator/node_content_type_internal</model>
+                    </internal_link>
+                    <cms_page_link translate="label" module="navigator">
+                        <label>Cms Page Link</label>
+                        <model>navigator/node_content_type_cmspage</model>
+                    </cms_page_link>
+                    <cms_block translate="label" module="navigator">
+                        <label>Cms Block</label>
+                        <model>navigator/node_content_type_cmsblock</model>
+                    </cms_block>
+                    <category_tree translate="label" module="navigator">
+                        <label>Category Tree</label>
+                        <model>navigator/node_content_type_category</model>
+                    </category_tree>
+                    <product_link translate="label" module="navigator">
+                        <label>Product Link</label>
+                        <model>navigator/node_content_type_product</model>
+                    </product_link>
+                    <cart_link translate="label" module="navigator">
+                        <label>Cart Link</label>
+                        <model>navigator/node_content_type_cartlink</model>
+                    </cart_link>
+                </type>
+            </content>
+            <visibility>
+                <condition>
+                    <group translate="label" module="navigator">
+                        <label>(New condition group)</label>
+                        <model>navigator/node_visibility_group</model>
+                    </group>
+                    <loggedin translate="label" module="navigator">
+                        <label>Logged in</label>
+                        <model>navigator/node_visibility_loggedin</model>
+                    </loggedin>
+                    <customer_group translate="label" module="navigator">
+                        <label>Customer group</label>
+                        <model>navigator/node_visibility_customergroup</model>
+                    </customer_group>
+                </condition>
+            </visibility>
+        </navigator>
+    </global>
+
+    <frontend>
+        <routers>
+            <navigator>
+                <use>standard</use>
+                <args>
+                    <module>Improove_Navigator</module>
+                    <frontName>navigator</frontName>
+                </args>
+            </navigator>
+        </routers>
+        <layout>
+            <updates>
+                <navigator>
+                    <file>navigator.xml</file>
+                </navigator>
+            </updates>
+        </layout>
+    </frontend>
+
+    <admin>
+        <routers>
+            <navigator>
+                <use>admin</use>
+                <args>
+                    <module>Improove_Navigator</module>
+                    <frontName>navigator</frontName>
+                </args>
+            </navigator>
+        </routers>
+    </admin>
+
+    <adminhtml>
+        <layout>
+            <updates>
+                <navigator>
+                    <file>navigator.xml</file>
+                </navigator>
+            </updates>
+        </layout>
+    </adminhtml>
+
+</config>

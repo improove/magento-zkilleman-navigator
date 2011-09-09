@@ -1,0 +1,9 @@
+<?php $_node = $this->getNode(); ?>
+<li class="<?php echo implode(' ', $this->getClassNames()); ?>">
+    <?php echo $this->getNodeContentHtml(); ?>
+    <?php if($_node->hasVisibleChildren()): ?>
+    <ul>
+        <?php echo $this->getChildNodesHtml(); ?>
+    </ul>
+    <?php endif; ?>
+</li>

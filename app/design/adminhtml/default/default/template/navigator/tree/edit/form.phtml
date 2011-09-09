@@ -1,0 +1,69 @@
+<div class="content-header">
+        <h3 class="icon-head">Node</h3>
+        <p class="content-buttons form-buttons">
+            <?php /*echo $this->getResetButtonHtml()*/ ?>
+            <?php if($this->getNodeId()): ?>
+                    <?php echo $this->getChildHtml('delete_button'); ?>
+            <?php endif; ?>
+            <?php echo $this->getAdditionalButtonsHtml(); ?>
+            <?php echo $this->getChildHtml('save_button'); ?>
+        </p>
+</div>
+<?php /* for ajax save..
+<iframe name="iframeSave" style="display:none; width:100%;" src="<?php echo $this->getJsUrl() ?>blank.html"></iframe>
+*/ ?>
+<form <?php /* target="iframeSave" */ ?> id="node_edit_form" action="<?php echo $this->getSaveUrl() ?>" method="post">
+    <div class="entry-edit">
+        <input type="hidden" name="form_key" value="<?php echo $this->getFormKey(); ?>" />
+        <?php echo $this->getFormHtml(); ?>
+        <?php echo $this->getChildHtml('visibility_fieldset'); ?>
+    </div>
+</form>
+<script type="text/javascript">
+
+    $('navigator_node_content_type').observe('change', function() {
+
+        var type = this.options[this.selectedIndex].value;
+
+        new Ajax.Request('<?php echo $this->getUrl('*/*/contentFieldset'); ?>', {
+            parameters : {
+                store: tree.storeId,
+                id: <?php echo (int)$this->getNodeId(); ?>,
+                content_type: type
+            },
+            method     : 'post',
+            onComplete : function(transport) {
+                $('<?php echo $this->getContentContainerId(); ?>')
+                    .update(transport.responseText);
+            }
+        });
+    });
+
+    nodeForm = new varienForm('node_edit_form');
+
+    nodeForm.submit= function (url) {
+        this.errorSections = $H({});
+        this.canShowError = true;
+        this.submitUrl = url;
+        if (this.validator && this.validator.validate()) {
+            if(this.validationUrl){
+                this._validate();
+            }
+            else{
+                if (this.isSubmitted) {
+                    return false;
+                }
+                this.isSubmitted = true;
+                this._submit();
+            }
+            //displayLoadingMask();
+            return true;
+        }
+        return false;
+    };
+
+    function nodeSubmit(url, useAjax) {
+        nodeForm.submit(url);
+    }
+
+</script>

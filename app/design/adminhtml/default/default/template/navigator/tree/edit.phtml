@@ -1,0 +1,83 @@
+<div id="node-edit-container" class="node-content">
+    <?php echo $this->getChildHtml('form') ?>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+    function updateContent(url, params, refreshTree) {
+        if (!params) {
+            params = {};
+        }
+        if (!params.form_key) {
+            params.form_key = FORM_KEY;
+        }
+
+        toolbarToggle.stop();
+
+       /*if(params.node_name)
+       {
+           var currentNode = tree.getNodeById(tree.currentNodeId);
+           currentNode.setText(params.node_name);
+       }*/
+
+        var categoryContainer = $('node-edit-container');
+        var messagesContainer = $('messages');
+        var thisObj = this;
+        new Ajax.Request(url + (url.match(new RegExp('\\?')) ? '&isAjax=true' : '?isAjax=true' ), {
+            parameters:  params,
+            evalScripts: true,
+            onComplete: function () {
+                try {
+                    if (refreshTree) {
+                        thisObj.refreshTreeArea();
+                    }
+                    toolbarToggle.start();
+                } catch (e) {
+                    alert(e.message);
+                };
+            },
+            onSuccess: function(transport) {
+                try {
+                    if (transport.responseText.isJSON()) {
+                        var response = transport.responseText.evalJSON();
+                        var needUpdate = true;
+                        if (response.error) {
+                            alert(response.message);
+                            needUpdate = false;
+                        }
+                        if(response.ajaxExpired && response.ajaxRedirect) {
+                            setLocation(response.ajaxRedirect);
+                            needUpdate = false;
+                        }
+                        if (needUpdate){
+                            if (response.content){
+                                $(categoryContainer).update(response.content);
+                            }
+                            if (response.messages){
+                                $(messagesContainer).update(response.messages);
+                            }
+                        }
+                    } else {
+                        $(categoryContainer).update(transport.responseText);
+                    }
+                }
+                catch (e) {
+                    $(categoryContainer).update(transport.responseText);
+                }
+            }
+        });
+    }
+
+    function refreshTreeArea(transport)
+    {
+        //TODO: refresh node names
+    }
+
+    function displayLoadingMask()
+    {
+       var loaderArea = $$('#html-body .wrapper')[0]; // Blocks all page
+        Position.clone($(loaderArea), $('loading-mask'), {offsetLeft:-2});
+        toggleSelectsUnderBlock($('loading-mask'), false);
+        Element.show('loading-mask');
+    }
+//]]>
+</script>

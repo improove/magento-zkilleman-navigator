@@ -1,0 +1,62 @@
+<?php
+    $_model = $this->getVisibilityModel();
+    $_id = $_model->getCondId();
+?>
+<input type="hidden" class="hidden" value="group" name="rule[conditions][<?php echo $_id; ?>][type]" id="conditions__<?php echo $_id; ?>__type">
+If
+<span class="rule-param">
+    <a class="label" href="javascript:void(0);"><?php echo $_model->getSelectedAggregatorLabel(); ?></a>
+    <span class="element">
+        <select id="conditions__<?php echo $_id; ?>__aggregator" class="element-value-changer" name="rule[conditions][<?php echo $_id; ?>][aggregator]">
+            <?php foreach($_model->getAggregatorOptions() as $value => $label): ?>
+            <?php $selected = ($value == $_model->getAggregator()); ?>
+            <option value="<?php echo $value; ?>"<?php if($selected): ?> selected="selected"<?php endif; ?>><?php echo $label; ?></option>
+            <?php endforeach; ?>
+        </select>
+    </span>
+</span>
+of these conditions are
+<span class="rule-param">
+    <a class="label" href="javascript:void(0);"><?php echo $_model->getSelectedValueLabel(); ?></a>
+    <span class="element">
+        <select id="conditions__<?php echo $_id; ?>__value" class="element-value-changer" name="rule[conditions][<?php echo $_id; ?>][value]">
+            <?php foreach($_model->getValueOptions() as $value => $label): ?>
+            <?php $selected = ($value == $_model->getValue()); ?>
+            <option value="<?php echo $value; ?>"<?php if($selected): ?> selected="selected"<?php endif; ?>><?php echo $label; ?></option>
+            <?php endforeach; ?>
+        </select>
+    </span>
+</span>
+:
+<?php if(((string)$_model->getCondId()) != '1'): ?>
+<span class="rule-param" id="">
+    <a title="Remove" class="rule-param-remove" href="javascript:void(0)">
+        <img class="v-middle" src="<?php echo $this->getSkinUrl('images'); ?>/rule_component_remove.gif">
+    </a>
+</span>
+<?php endif; ?>
+<ul id="conditions__<?php echo $_id; ?>__children" class="condition-list">
+    <?php $children = $_model->getChildren(); ?>
+    <?php foreach($children as $child): ?>
+    <li>
+        <?php echo $child->getEditBlock()->toHtml(); ?>
+    </li>
+    <?php endforeach; ?>
+    <li>
+        <span class="rule-param rule-param-new-child">
+            <a class="label" href="javascript:void(0);">
+                <img class="v-middle" src="<?php echo $this->getSkinUrl('images'); ?>/rule_component_add.gif" />
+            </a>
+            <span class="element">
+                <select id="conditions__<?php echo $_id; ?>__new_child" class="element-value-changer">
+                    <option value="">
+                        <?php echo Mage::helper('navigator')->__('Choose an option...'); ?>
+                    </option>
+                    <?php foreach($_model->getAvailableConditions() as $value => $label): ?>
+                    <option value="<?php echo $value; ?>"><?php echo $label; ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </span>
+        </span>
+    </li>
+</ul>

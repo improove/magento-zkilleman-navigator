@@ -1,0 +1,73 @@
+<?php 
+    //TODO: To much logic here, please refactor
+    $_node = $this->getNode();
+    $_displayUseDefault = ($_node->getId() && $_node->getStoreId());
+    $_attribute = $_node->getResource()->getAttribute('visibility');
+    $_usedDefault = null;
+    $attributeCode = $_attribute->getAttributeCode();
+    $defaultValue = $_node->getAttributeDefaultValue($attributeCode);
+    if (!$_node->getExistsStoreValueFlag($attributeCode)) {
+        $_usedDefault = true;
+    } else if ($_node->getData('visibility') == $defaultValue &&
+               $_node->getStoreId() != 0) {
+        $_usedDefault = false;
+    }
+    if ($_usedDefault === null && $defaultValue === false && !$_attribute->getIsRequired() && $_node->getData('visibility')) {
+        $_usedDefault = false;
+    }
+    if ($_usedDefault === null) {
+        $_usedDefault = ($defaultValue === false);
+    }
+?>
+<div class="entry-edit-head">
+    <h4 class="icon-head head-edit-form fieldset-legend">
+        <?php echo Mage::helper('navigator')->__('Visibility Conditions'); ?>
+    </h4>
+    <div class="form-buttons"></div>
+</div>
+<div class="fieldset fieldset-wide" id="navigator_node_visibility_fieldset">
+    <div class="hor-scroll">
+        <table cellspacing="0" class="form-list">
+        <tr>
+            <td class="label"><?php echo Mage::helper('navigator')->__('Node is visible...'); ?></td>
+            <td class="conditions" style="padding: 5px;">
+                <div id="visibilityFormContainer" class="rule-tree">
+                    <?php echo $this->getVisibilityModel()->getEditBlock()->toHtml(); ?>
+                </div>
+            </td>
+            <td class="scope-label"><span class="nobr">[STORE VIEW]</span>
+            </td>
+            <?php if ($_displayUseDefault): ?>
+            <td class="value use-default" style="width: 185px !important;">
+                <input type="checkbox" value="visibility"<?php if ($_usedDefault): ?> checked="checked"<?php endif; ?> id="navigator_node_visibility_default" name="use_default[]">
+                <label class="normal" for="navigator_node_visibility_default">Use Default Value</label>
+            </td>
+            <?php endif; ?>
+        </tr>
+        </table>
+    </div>
+</div>
+<script type="text/javascript">
+
+    var visibilityForm = new VarienRulesForm(
+        'visibilityFormContainer',
+        '<?php echo $this->getUrl('*/adminhtml_node/newVisibility'); ?>'
+    );
+
+    <?php if ($_displayUseDefault): ?>
+    function toggleVisibilityForm()
+    {
+        if ($('navigator_node_visibility_default').checked) {
+            $('visibilityFormContainer').hide();
+        }
+        else {
+            $('visibilityFormContainer').show();
+        }
+    }
+
+    Event.observe('navigator_node_visibility_default', 'change', toggleVisibilityForm);
+    toggleVisibilityForm();
+    <?php endif; ?>
+
+</script>
+

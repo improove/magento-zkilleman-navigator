@@ -1,0 +1,19 @@
+<style type="text/css">
+    div.menu-tree ul {
+        padding-left: 1em;
+        }
+        div.menu-tree ul li {
+            list-style: square;
+            }
+            div.menu-tree ul li.level1 {
+                list-style: circle;
+            }
+            div.menu-tree ul li.level2 {
+                list-style: disc;
+            }
+</style>
+<div class="menu-tree">
+    <ul>
+        <?php echo $this->getTreeHtml(); ?>
+    </ul>
+</div>

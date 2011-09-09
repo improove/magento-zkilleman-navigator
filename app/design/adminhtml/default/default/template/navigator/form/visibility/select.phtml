@@ -1,0 +1,25 @@
+<?php
+    $_model = $this->getVisibilityModel();
+    $_id = $_model->getCondId();
+?>
+<input type="hidden" class="hidden" value="<?php echo $_model->getCode(); ?>" name="rule[conditions][<?php echo $_id; ?>][type]" id="conditions__<?php echo $_id; ?>__type">
+<?php ob_start(); ?>
+<span class="rule-param">
+    <a class="label" href="javascript:void(0)"><?php echo $_model->getSelectedValueLabel(); ?></a>
+    <span class="element">
+        <select class="element-value-changer select" name="rule[conditions][<?php echo $_id; ?>][value]" id="conditions__<?php echo $_id; ?>__value">
+            <?php foreach($_model->getSelectOptions() as $value => $label): ?>
+            <?php $selected = ($value == $_model->getValue()); ?>
+            <option<?php if($selected): ?> selected="selected"<?php endif; ?> value="<?php echo $value; ?>"><?php echo $label; ?></option>
+            <?php endforeach; ?>
+        </select>
+    </span>
+</span>
+<?php $selectHtml = ob_get_clean(); ?>
+<?php echo sprintf($_model->getConditionText(), $selectHtml); ?>
+:
+<span class="rule-param">
+    <a title="Remove" class="rule-param-remove" href="javascript:void(0)">
+        <img class="v-middle" src="<?php echo $this->getSkinUrl('images'); ?>/rule_component_remove.gif">
+    </a>
+</span>

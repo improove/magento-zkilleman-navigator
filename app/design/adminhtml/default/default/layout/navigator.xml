@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<layout>
+    <navigator_adminhtml_index_index>
+        <update handle="editor"/>
+        <reference name="head">
+            <action method="addJs"><file>mage/adminhtml/rules.js</file></action>
+        </reference>
+        <reference name="left">
+            <block name="navigator.tree" type="navigator/adminhtml_tree" template="navigator/tree.phtml" />
+        </reference>
+        <reference name="content">
+            <block name="navigator.edit"  type="navigator/adminhtml_tree_edit" template="navigator/tree/edit.phtml" />
+        </reference>
+        <!--reference name="js">
+            <block type="core/template" template="catalog/wysiwyg/js.phtml" name="catalog.wysiwyg.js" />
+        </reference-->
+    </navigator_adminhtml_index_index>
+    <navigator_adminhtml_node_edit>
+        <update handle="navigator_adminhtml_index_index"/>
+    </navigator_adminhtml_node_edit>
+    <navigator_adminhtml_node_add>
+        <update handle="navigator_adminhtml_index_index"/>
+    </navigator_adminhtml_node_add>
+</layout>

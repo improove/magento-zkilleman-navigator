@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <system>
+            <children>
+                <navigator translate="title">
+                    <title>Improove Navigator</title>
+                    <action>navigator/adminhtml_index</action>
+                    <sort_order>0</sort_order>
+                </navigator>
+            </children>
+        </system>
+    </menu>
+</config>

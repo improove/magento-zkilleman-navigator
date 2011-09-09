@@ -1,0 +1,14 @@
+<?php
+    $_node = $this->getNode();
+    $_model = $this->getTypeModel();
+?>
+<a
+    href="<?php echo $_model->getHref(); ?>"
+    target="<?php echo $_model->getTarget(); ?>"
+    class="<?php echo $this->htmlescape($_model->getClassList()); ?>"
+    title="<?php echo $this->htmlescape($_model->getAnchorTitle()); ?>"
+    >
+    <span>
+        <?php echo $this->htmlescape($_model->getAnchorText()); ?>
+    </span>
+</a>
