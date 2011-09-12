@@ -38,4 +38,12 @@ $installer->createEntityTables(
 );
 $installer->installEntities();
 
+Mage::getModel('navigator/node')
+    ->setId(1)
+    ->setParentId(0)
+    ->setCode('root')
+    ->setLft(0)
+    ->setRgt(1)
+    ->save();
+
 $installer->endSetup();
