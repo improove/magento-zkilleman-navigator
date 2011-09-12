@@ -184,7 +184,7 @@ class Zkilleman_Navigator_Model_Node_Content_Type_Category
             (strlen($pad) ? $pad . '| ' : '') . $node->getName()
         );
         foreach ($node->getChildren() as $child) {
-            if($child->getIsActive()) {
+            if($child->getIsActive() || $level == 0) {
                 $cResult = $this->_getCategoryOptionArray($child, $level + 1);
                 foreach($cResult as $cId => $cLabel) {
                     $result[$cId] = $cLabel;

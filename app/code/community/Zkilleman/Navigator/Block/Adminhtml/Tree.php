@@ -191,7 +191,8 @@ class Zkilleman_Navigator_Block_Adminhtml_Tree
     {
         $tree = Mage::getModel('navigator/tree');
         $tree->load();
-        $rootArray = $this->_getNodeJson($tree->getRootNode());
+        $root = $tree->getRootNode();
+        $rootArray = $this->_getNodeJson($root);
         $json = Mage::helper('core')->jsonEncode(
             isset($rootArray['children']) ? $rootArray['children'] : array()
         );

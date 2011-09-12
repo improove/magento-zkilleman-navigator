@@ -151,7 +151,7 @@ class Zkilleman_Navigator_Model_Tree extends Varien_Object
      *
      * @return Zkilleman_Navigator_Model_Node
      */
-    public function &getRootNode()
+    public function getRootNode()
     {
         return $this->_root;
     }
@@ -160,7 +160,7 @@ class Zkilleman_Navigator_Model_Tree extends Varien_Object
      *
      * @return Zkilleman_Navigator_Model_Mysql4_Node_Collection
      */
-    public function &getNodeCollection()
+    public function getNodeCollection()
     {
         return $this->_nodeCollection;
     }
@@ -169,7 +169,7 @@ class Zkilleman_Navigator_Model_Tree extends Varien_Object
      *
      * @return Zkilleman_Navigator_Model_Node
      */
-    public function &getNodeById($id)
+    public function getNodeById($id)
     {
         return $this->getNodeCollection()->getItemById($id);
     }

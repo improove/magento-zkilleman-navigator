@@ -152,7 +152,7 @@ class Zkilleman_Navigator_Model_Node extends Mage_Core_Model_Abstract
         $this->delete();
     }
 
-    public function &getChildren()
+    public function getChildren()
     {
         return $this->_children;
     }
