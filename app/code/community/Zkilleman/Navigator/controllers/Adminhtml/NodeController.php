@@ -59,7 +59,10 @@ class Zkilleman_Navigator_Adminhtml_NodeController extends Zkilleman_Navigator_C
         $node = $this->_initNode();
         $data = $this->getRequest()->getPost();
         $node->addData($data);
-        $node->getContentTypeInstance()->prepareForSave($data['content_fields']);
+        if (isset($data['content_fields'])) {
+            $node->getContentTypeInstance()
+                    ->prepareForSave($data['content_fields']);
+        }
         $node->setVisibility(serialize($data['rule']));
         
         if($useDefaults = $this->getRequest()->getPost('use_default')) {
